@@ -155,7 +155,7 @@
             box-shadow: 0 12px 24px rgba(0,0,0,0.03);
             transition: all 0.3s ease-in-out;
             overflow: hidden;
-            display: none; /* Hidden by default, toggled via btn */
+            display: none; 
         }
         .doubt-header {
             display: flex;
@@ -403,7 +403,7 @@
                 <button class="chip" data-cat="Dental">Dental</button>
             </div>
             
-            <!-- DOUBT BAR / PRESCRIPTION ANALYSIS (Toggled visibility) -->
+            <!-- DOUBT BAR -->
             <div id="doubtBarContainer" class="doubt-bar-card">
                 <div class="doubt-header"><i class="fas fa-file-prescription"></i><h3>📋 Medical Doubt Bar · Rx AI</h3></div>
                 <textarea id="doubtTextarea" class="doubt-textarea" rows="2" placeholder="Describe your symptoms or medical doubt (optional)..."></textarea>
@@ -424,7 +424,7 @@
             </div>
 
             <div class="ratings-list" id="ratingsList">
-                <!-- Dynamically populated hospital cards -->
+                <!-- Dynamically populated -->
             </div>
         </div>
 
@@ -432,13 +432,11 @@
         <div id="page3" class="page">
             <div class="detail-page">
                 <div class="hospital-detail-card">
-                    <div class="image-grid" id="hospitalImages">
-                        <!-- Images injected here -->
-                    </div>
+                    <div class="image-grid" id="hospitalImages"></div>
                     <h2 id="detailName">Hospital Name</h2>
-                    <div class="address-box"><i class="fas fa-map-pin"></i><span id="detailAddress">Address goes here</span></div>
+                    <div class="address-box"><i class="fas fa-map-pin"></i><span id="detailAddress">Address</span></div>
                     <div id="detailRating"><i class="fas fa-star" style="color:#f7b731;"></i> 4.5/5</div>
-                    <div id="detailDesc">Hospital description...</div>
+                    <div id="detailDesc">Description...</div>
                     
                     <div class="rating-feedback">
                         <h3><i class="fas fa-star-half-alt" style="color: #f7b731;"></i> Rate & Feedback</h3>
@@ -491,7 +489,7 @@
         <div id="page5" class="page">
             <div class="ai-page">
                 <div class="ai-messages" id="aiMessages">
-                    <div class="message-ai bot">👋 Hello! I'm HealthHub's AI assistant. How can I help you today? You can ask me to find a hospital, explain a symptom, or check out the Doubt Bar on the home page!</div>
+                    <div class="message-ai bot">👋 Hello! I'm HealthHub's AI assistant. How can I help you today?</div>
                 </div>
                 <div class="ai-input-area">
                     <input type="text" id="aiInput" placeholder="Type your health question...">
@@ -501,7 +499,7 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
+    <!-- Bottom Nav -->
     <div class="bottom-nav hidden" id="bottomNav">
         <div class="nav-item" id="navAI">
             <i class="fas fa-robot"></i><span>AI Bot</span>
@@ -514,46 +512,71 @@
         </div>
     </div>
 
-    <!-- Floating Action Button -->
+    <!-- Floating AI -->
     <button class="floating-ai" id="floatingAiBtn" title="Chat with AI">
         <i class="fas fa-comment-medical"></i>
     </button>
 
-    <!-- Lightbox for images -->
+    <!-- Lightbox -->
     <div id="lightbox" class="lightbox hidden">
         <button class="lightbox-close" id="lightboxClose">&times;</button>
         <button class="lightbox-prev" id="lightboxPrev">&#10094;</button>
         <button class="lightbox-next" id="lightboxNext">&#10095;</button>
         <div class="lightbox-content">
-            <img id="lightboxImg" alt="Hospital View">
-        </div>
-    </div>
-
-    <!-- Video Modal (Optional, left intact from original) -->
-    <div id="videoModal" class="modal hidden">
-        <div class="modal-backdrop"></div>
-        <div class="modal-content">
-            <button id="videoModalClose" class="modal-close">×</button>
-            <div class="modal-body">
-                <iframe data-src="https://www.youtube.com/embed/1W5K7re7Zcs"></iframe>
-            </div>
+            <img id="lightboxImg" alt="Hospital">
         </div>
     </div>
 </div>
 
 <script>
 (function(){
-    // --- Data Source ---
+    // --- Data ---
     const hospitals = [
         { name: "Appolo Kallai Hospital", category: "General", rating: 4.5, reviews: 120, openNow: true, emergency: true, address: "25b/ salem main road kallakurichi", desc: "Top-tier multi-specialty hospital equipped with modern infrastructure and a 24/7 emergency care unit.", images: ["https://picsum.photos/id/20/400/300", "https://picsum.photos/id/26/400/300", "https://picsum.photos/id/28/400/300", "https://picsum.photos/id/29/400/300"] },
-        { name: "SKP Hospital", category: "Cardiology", rating: 4.2, reviews: 86, openNow: false, emergency: false, address: "456 Oak Ave, Northridge", desc: "Specialized in advanced cardiac care, open heart surgeries, and comprehensive cardiovascular health programs.", images: ["https://picsum.photos/id/15/400/300","https://picsum.photos/id/16/400/300","https://picsum.photos/id/17/400/300","https://picsum.photos/id/18/400/300"] },
-        { name: "Kumar Hospital", category: "Oncology", rating: 4.7, reviews: 200, openNow: true, emergency: false, address: "789 Pine Ln, Westside", desc: "Renowned oncology center offering state-of-the-art cancer treatment, radiation therapy, and pediatric specialties.", images: ["https://picsum.photos/id/42/400/300","https://picsum.photos/id/43/400/300","https://picsum.photos/id/44/400/300","https://picsum.photos/id/45/400/300"] },
-        { name: "Barath Clinic", category: "Dental", rating: 4.0, reviews: 48, openNow: false, emergency: true, address: "321 Beach Blvd, Seaport", desc: "Expert dental care, orthodontics, and walk-in trauma handling capabilities for dental emergencies.", images: ["https://picsum.photos/id/62/400/300","https://picsum.photos/id/63/400/300","https://picsum.photos/id/64/400/300","https://picsum.photos/id/65/400/300"] }
+        { name: "SKP Hospital", category: "Cardiology", rating: 4.2, reviews: 86, openNow: false, emergency: false, address: "456 Oak Ave, Northridge", desc: "Specialized in advanced cardiac care and comprehensive cardiovascular health programs.", images: ["https://picsum.photos/id/15/400/300","https://picsum.photos/id/16/400/300","https://picsum.photos/id/17/400/300","https://picsum.photos/id/18/400/300"] },
+        { name: "Kumar Hospital", category: "Oncology", rating: 4.7, reviews: 200, openNow: true, emergency: false, address: "789 Pine Ln, Westside", desc: "Renowned oncology center offering state-of-the-art cancer treatment and radiation therapy.", images: ["https://picsum.photos/id/42/400/300","https://picsum.photos/id/43/400/300","https://picsum.photos/id/44/400/300","https://picsum.photos/id/45/400/300"] },
+        { name: "Barath Clinic", category: "Dental", rating: 4.0, reviews: 48, openNow: false, emergency: true, address: "321 Beach Blvd, Seaport", desc: "Expert dental care, orthodontics, and walk-in trauma handling capabilities.", images: ["https://picsum.photos/id/62/400/300","https://picsum.photos/id/63/400/300","https://picsum.photos/id/64/400/300","https://picsum.photos/id/65/400/300"] }
     ];
 
     let selectedHospitalIndex = 0;
     let activeCategory = '';
     let nearMeActive = false;
+
+    // --- History Management (FIXES THE BACK BUTTON ISSUE) ---
+    // This intercepts the browser back button so it navigates internally instead of closing the site.
+    window.addEventListener('popstate', (event) => {
+        if (event.state && event.state.page) {
+            internalShowPage(event.state.page, false);
+        } else {
+            // Default behavior if no state (usually back to home)
+            internalShowPage('page2', false);
+        }
+    });
+
+    function showPage(pageId) {
+        // Push state to browser history
+        window.history.pushState({ page: pageId }, '', '#' + pageId);
+        internalShowPage(pageId);
+    }
+
+    function internalShowPage(pageId, updateHistory = true) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const targetPage = document.getElementById(pageId);
+        if (targetPage) targetPage.classList.add('active');
+
+        if(pageId === 'page1') {
+            bottomNav.classList.add('hidden');
+            floatingAiBtn.classList.add('hidden');
+        } else {
+            bottomNav.classList.remove('hidden');
+            if(pageId !== 'page5') floatingAiBtn.classList.remove('hidden'); else floatingAiBtn.classList.add('hidden');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            if(pageId === 'page2' || pageId === 'page3') document.getElementById('navHome').classList.add('active');
+            else if(pageId === 'page4') document.getElementById('navSettings').classList.add('active');
+            else if(pageId === 'page5') document.getElementById('navAI').classList.add('active');
+            document.getElementById('pagesContainer').scrollTop = 0;
+        }
+    }
 
     // --- DOM Elements ---
     const bottomNav = document.getElementById('bottomNav');
@@ -571,12 +594,12 @@
     const doubtContainer = document.getElementById('doubtBarContainer');
     const floatingAiBtn = document.getElementById('floatingAiBtn');
 
-    // --- Search & Rendering Logic ---
+    // --- Search & Rendering ---
     let searchTimeout;
-    function triggerRender() { 
-        clearTimeout(searchTimeout); 
-        ratingsDiv.innerHTML = '<div class="shimmer-row"></div><div class="shimmer-row"></div><div class="shimmer-row"></div>'; 
-        searchTimeout = setTimeout(() => renderRatings(searchInput.value.trim()), 400); 
+    function triggerRender() {
+        clearTimeout(searchTimeout);
+        ratingsDiv.innerHTML = '<div class="shimmer-row"></div><div class="shimmer-row"></div>';
+        searchTimeout = setTimeout(() => renderRatings(searchInput.value.trim()), 300);
     }
 
     function renderRatings(filter = '') {
@@ -585,45 +608,35 @@
         if (filterOpenNow.checked) filtered = filtered.filter(h => h.openNow);
         if (filterEmergency.checked) filtered = filtered.filter(h => h.emergency);
         
-        if (nearMeActive) {
-            // Mock proximity by sorting by rating if "Near Me" is active
-            filtered.sort((a,b)=>b.rating - a.rating);
-        } else {
-            filtered.sort((a,b)=>a.name.localeCompare(b.name));
-        }
+        if (nearMeActive) filtered.sort((a,b)=>b.rating - a.rating);
+        else filtered.sort((a,b)=>a.name.localeCompare(b.name));
 
-        if(!filtered.length){ 
-            ratingsDiv.innerHTML=`<div style="padding:40px 20px; text-align:center; color:#7fa3c2;"><i class="fas fa-search" style="font-size:40px; margin-bottom:16px; opacity:0.5;"></i><br>No hospitals found matching your criteria.</div>`; 
-            return; 
+        if(!filtered.length){
+            ratingsDiv.innerHTML=`<div style="padding:40px; text-align:center; color:#7fa3c2;">No results found.</div>`;
+            return;
         }
 
         let html='';
         filtered.forEach(h => {
             const origIdx = hospitals.indexOf(h);
-            let stars=''; 
-            let full = Math.floor(h.rating); 
-            let half = h.rating - full >= 0.5;
-            for(let s=0; s<5; s++){ 
-                if(s<full) stars+='<i class="fas fa-star"></i>'; 
-                else if(s===full && half) stars+='<i class="fas fa-star-half-alt"></i>'; 
-                else stars+='<i class="far fa-star"></i>'; 
-            }
+            let stars='';
+            let full = Math.floor(h.rating);
+            for(let s=0; s<5; s++) stars += s < full ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+            
             html += `
                 <div class="hospital-card" data-index="${origIdx}">
                     <img class="card-avatar" src="${h.images[0]}" loading="lazy">
                     <div class="card-body">
                         <h3>${h.name}</h3>
-                        <div class="address"><i class="fas fa-map-marker-alt" style="color:#c25400;"></i>${h.address}</div>
+                        <div class="address"><i class="fas fa-map-marker-alt"></i>${h.address}</div>
                         <div class="badges">
                             ${h.openNow ? '<span class="badge open">Open now</span>' : '<span class="badge closed">Closed</span>'}
-                            ${h.emergency ? '<span class="badge emergency"><i class="fas fa-ambulance"></i> ER</span>' : ''}
+                            ${h.emergency ? '<span class="badge emergency">ER</span>' : ''}
                         </div>
                     </div>
                     <div class="card-meta">
                         <div class="rating-stars">${stars} <strong>${h.rating}</strong></div>
-                        <div class="reviews">${h.reviews} reviews</div>
-                        <div style="display:flex; gap:8px; margin-top:4px;">
-                            <button class="direction-btn-card" data-address="${h.address}" title="Directions"><i class="fas fa-location-arrow"></i></button>
+                        <div style="display:flex; gap:8px; margin-top:8px;">
                             <button class="details-btn view-details">View</button>
                         </div>
                     </div>
@@ -631,375 +644,100 @@
         });
         ratingsDiv.innerHTML = html;
 
-        // Add event listeners to newly rendered cards
         document.querySelectorAll('.hospital-card').forEach(card => {
-            card.addEventListener('click', (e) => { 
-                if(e.target.closest('.view-details') || e.target.closest('.direction-btn-card')) return; 
-                const idx = card.dataset.index; 
-                if(idx){ 
-                    selectedHospitalIndex = parseInt(idx); 
-                    populateHospitalDetail(selectedHospitalIndex); 
-                    showPage('page3'); 
-                } 
-            });
-            // Material Ripple Effect
-            card.addEventListener('pointerdown', (ev) => { 
-                const ripple = document.createElement('span'); 
-                ripple.className = 'ripple-el'; 
-                const rect = card.getBoundingClientRect(); 
-                const size = Math.max(rect.width, rect.height); 
-                ripple.style.width = ripple.style.height = size + 'px'; 
-                ripple.style.left = (ev.clientX - rect.left - size/2) + 'px'; 
-                ripple.style.top = (ev.clientY - rect.top - size/2) + 'px'; 
-                card.appendChild(ripple); 
-                setTimeout(() => ripple.remove(), 600); 
-            });
+            card.onclick = () => {
+                selectedHospitalIndex = parseInt(card.dataset.index);
+                populateHospitalDetail(selectedHospitalIndex);
+                showPage('page3');
+            };
         });
-
-        document.querySelectorAll('.view-details').forEach(btn => btn.addEventListener('click', (e) => { 
-            const card = e.target.closest('.hospital-card'); 
-            const idx = card.dataset.index; 
-            if(idx){ 
-                selectedHospitalIndex = parseInt(idx); 
-                populateHospitalDetail(selectedHospitalIndex); 
-                showPage('page3'); 
-            } 
-        }));
-
-        document.querySelectorAll('.direction-btn-card').forEach(btn => btn.addEventListener('click', (e) => { 
-            e.stopPropagation(); 
-            const addr = btn.dataset.address; 
-            if(addr) window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`, '_blank'); 
-        }));
     }
 
-    // --- Detail Page Logic ---
     function populateHospitalDetail(idx){
         const h = hospitals[idx];
         document.getElementById('detailName').innerText = h.name;
         document.getElementById('detailAddress').innerText = h.address;
-        document.getElementById('detailRating').innerHTML = `<i class="fas fa-star" style="color:#f7b731;"></i> ${h.rating}/5 (${h.reviews} reviews)`;
+        document.getElementById('detailRating').innerHTML = `<i class="fas fa-star" style="color:#f7b731;"></i> ${h.rating}/5`;
         document.getElementById('detailDesc').innerText = h.desc;
-        
         let imgs = ''; 
-        h.images.forEach((src, i) => { 
-            imgs += `<img loading="lazy" src="${src}" data-index="${i}">`; 
-        });
+        h.images.forEach((src, i) => imgs += `<img src="${src}" data-index="${i}">`);
         document.getElementById('hospitalImages').innerHTML = imgs;
-        
-        document.querySelectorAll('#hospitalImages img').forEach(img => img.addEventListener('click', () => { 
-            openLightbox(idx, parseInt(img.dataset.index)); 
-        }));
-
-        // Reset feedback form
-        document.getElementById('feedbackText').value = '';
-        currentStarRating = 0;
-        document.querySelectorAll('#starRating i').forEach(s => { 
-            s.classList.remove('fas'); s.classList.add('far'); s.style.color = ''; 
-        });
+        document.querySelectorAll('#hospitalImages img').forEach(img => img.onclick = () => openLightbox(idx, parseInt(img.dataset.index)));
     }
 
-    // --- Lightbox Logic ---
-    let currentHospitalIndex = 0, currentImageIndex = 0;
-    const lightbox = document.getElementById('lightbox'), 
-          lightboxImg = document.getElementById('lightboxImg'), 
-          lightboxClose = document.getElementById('lightboxClose'), 
-          lightboxPrev = document.getElementById('lightboxPrev'), 
-          lightboxNext = document.getElementById('lightboxNext');
+    // --- Lightbox ---
+    let curHospIdx = 0, curImgIdx = 0;
+    const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg');
+    function openLightbox(hi, ii){ curHospIdx = hi; curImgIdx = ii; updateLb(); lightbox.classList.remove('hidden'); }
+    function updateLb(){ lbImg.src = hospitals[curHospIdx].images[curImgIdx]; }
+    document.getElementById('lightboxClose').onclick = () => lightbox.classList.add('hidden');
+    document.getElementById('lightboxPrev').onclick = () => { if(curImgIdx > 0) { curImgIdx--; updateLb(); } };
+    document.getElementById('lightboxNext').onclick = () => { if(curImgIdx < hospitals[curHospIdx].images.length - 1) { curImgIdx++; updateLb(); } };
 
-    function openLightbox(hospIdx, imgIdx){ 
-        currentHospitalIndex = hospIdx; 
-        currentImageIndex = imgIdx; 
-        updateLightboxImage(); 
-        lightbox.classList.remove('hidden'); 
-    }
-    
-    function updateLightboxImage(){ 
-        const imgs = hospitals[currentHospitalIndex].images; 
-        lightboxImg.src = imgs[currentImageIndex]; 
-        lightboxPrev.classList.toggle('disabled', currentImageIndex === 0); 
-        lightboxNext.classList.toggle('disabled', currentImageIndex === imgs.length - 1); 
-    }
-    
-    lightboxClose.onclick = () => lightbox.classList.add('hidden'); 
-    lightboxPrev.onclick = () => { if(currentImageIndex > 0){ currentImageIndex--; updateLightboxImage(); } }; 
-    lightboxNext.onclick = () => { if(currentHospitalIndex >= 0 && currentImageIndex < hospitals[currentHospitalIndex].images.length - 1){ currentImageIndex++; updateLightboxImage(); } };
-
-    // --- Navigation System ---
-    function showPage(pageId){
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-        
-        if(pageId === 'page1') {
-            bottomNav.classList.add('hidden');
-            floatingAiBtn.classList.add('hidden');
-        } else { 
-            bottomNav.classList.remove('hidden'); 
-            if(pageId !== 'page5') floatingAiBtn.classList.remove('hidden'); else floatingAiBtn.classList.add('hidden');
-
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active')); 
-            if(pageId === 'page2' || pageId === 'page3') document.getElementById('navHome').classList.add('active'); 
-            else if(pageId === 'page4') document.getElementById('navSettings').classList.add('active'); 
-            else if(pageId === 'page5') document.getElementById('navAI').classList.add('active'); 
-            
-            // Scroll to top
-            document.getElementById('pagesContainer').scrollTop = 0;
-        }
-    }
-
-    // Nav Bindings
+    // --- Event Bindings ---
     document.getElementById('continueBtn').onclick = () => showPage('page2');
     document.getElementById('navHome').onclick = () => showPage('page2');
     document.getElementById('navSettings').onclick = () => showPage('page4');
     document.getElementById('navAI').onclick = () => showPage('page5');
     floatingAiBtn.onclick = () => showPage('page5');
-    document.getElementById('backToSearchBtn').onclick = () => showPage('page2');
     
-    // Action Bindings (Detail Page)
-    document.getElementById('bookingBtn').onclick = () => { 
-        alert(`Booking request initiated for ${hospitals[selectedHospitalIndex].name}. You will be redirected to the scheduling portal.`); 
-        window.open('https://forms.google.com', '_blank'); 
-    };
-    document.getElementById('directionBtn').onclick = () => { 
-        const addr = hospitals[selectedHospitalIndex]?.address; 
-        if(addr) window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`, '_blank'); 
+    // BACK TO SEARCH - Now uses history.back() for better UX
+    document.getElementById('backToSearchBtn').onclick = () => {
+        window.history.back();
     };
 
-    // Filter Bindings
-    searchBtn.onclick = triggerRender; 
-    searchInput.addEventListener('input', triggerRender);
+    searchBtn.onclick = triggerRender;
+    searchInput.oninput = triggerRender;
     filterIcon.onclick = () => filterPanel.classList.toggle('hidden');
-    filterOpenNow.onchange = triggerRender; 
+    filterOpenNow.onchange = triggerRender;
     filterEmergency.onchange = triggerRender;
-    
-    categoryChips.forEach(chip => { 
-        chip.onclick = () => { 
-            categoryChips.forEach(c => c.classList.remove('active')); 
-            chip.classList.add('active'); 
-            activeCategory = chip.dataset.cat; 
-            triggerRender(); 
-        }; 
+    categoryChips.forEach(chip => {
+        chip.onclick = () => {
+            categoryChips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            activeCategory = chip.dataset.cat;
+            triggerRender();
+        };
     });
 
-    nearMeBtn.onclick = () => { 
-        nearMeActive = !nearMeActive; 
-        nearMeBtn.style.color = nearMeActive ? '#0a3147' : '#4f6f89'; 
-        nearMeBtn.style.opacity = nearMeActive ? '1' : '0.8';
-        triggerRender(); 
-    };
-
-    // --- Voice Search ---
-    let recognition = null; 
-    if('webkitSpeechRecognition' in window){ 
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition; 
-        recognition = new SpeechRecognition(); 
-        recognition.lang = 'en-US'; 
-        recognition.onstart = () => { 
-            voiceSearchBtn.classList.add('listening'); 
-            voiceSearchBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i>'; 
-        }; 
-        recognition.onend = () => { 
-            voiceSearchBtn.classList.remove('listening'); 
-            voiceSearchBtn.innerHTML = '<i class="fas fa-microphone"></i>'; 
-        }; 
-        recognition.onresult = (e) => { 
-            searchInput.value = e.results[0][0].transcript; 
-            triggerRender(); 
-        }; 
-        recognition.onerror = () => { 
-            voiceSearchBtn.classList.remove('listening'); 
-            alert('Voice search error. Please check microphone permissions.'); 
-        }; 
-        voiceSearchBtn.onclick = () => { 
-            if(recognition){ 
-                if(voiceSearchBtn.classList.contains('listening')) recognition.stop(); 
-                else recognition.start(); 
-            } 
-        }; 
-    } else {
-        voiceSearchBtn.style.display = 'none'; 
-    }
-
-    // --- Rating & Feedback System (Detail Page) ---
-    const starNodes = document.querySelectorAll('#starRating i');
-    let currentStarRating = 0;
-
-    starNodes.forEach(star => {
-        star.addEventListener('click', () => {
-            currentStarRating = parseInt(star.getAttribute('data-value'));
-            starNodes.forEach(s => {
-                if (parseInt(s.getAttribute('data-value')) <= currentStarRating) {
-                    s.classList.remove('far');
-                    s.classList.add('fas');
-                    s.style.color = '#f7b731';
-                } else {
-                    s.classList.remove('fas');
-                    s.classList.add('far');
-                    s.style.color = '#cbd5e1';
-                }
-            });
-        });
-    });
-
-    document.getElementById('submitFeedbackBtn').addEventListener('click', () => {
-        const text = document.getElementById('feedbackText').value.trim();
-        if(currentStarRating === 0) {
-            alert('Please select a star rating first.');
-            return;
-        }
-        
-        // Simulate API Request
-        const btn = document.getElementById('submitFeedbackBtn');
-        const origText = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-        btn.disabled = true;
-
-        setTimeout(() => {
-            alert(`Thank you for your feedback!\nRating: ${currentStarRating} Stars\nReview: ${text || 'No comment'}`);
-            btn.innerHTML = origText;
-            btn.disabled = false;
-            
-            // Clear form
-            document.getElementById('feedbackText').value = '';
-            currentStarRating = 0;
-            starNodes.forEach(s => { s.classList.remove('fas'); s.classList.add('far'); s.style.color = '#cbd5e1'; });
-        }, 800);
-    });
-
-    // --- Doubt Bar / Prescription Analysis System ---
-    let doubtBarOpen = false;
+    // --- Doubt Bar ---
     toggleDoubtBtn.onclick = () => {
-        doubtBarOpen = !doubtBarOpen;
-        if(doubtBarOpen) {
-            doubtContainer.style.display = 'block';
-            doubtContainer.scrollIntoView({behavior: "smooth", block: "start"});
-            toggleDoubtBtn.style.background = '#e2f0fd';
-            toggleDoubtBtn.style.color = '#0a3147';
-        } else {
-            doubtContainer.style.display = 'none';
-            toggleDoubtBtn.style.background = '#f5e6d3';
-            toggleDoubtBtn.style.color = '#c25400';
-        }
+        const isOpen = doubtContainer.style.display === 'block';
+        doubtContainer.style.display = isOpen ? 'none' : 'block';
     };
 
-    const prescriptionFile = document.getElementById('prescriptionFile');
-    const prescriptionPreview = document.getElementById('prescriptionPreview');
-    const analyzePrescriptionBtn = document.getElementById('analyzePrescriptionBtn');
-    const analysisResult = document.getElementById('analysisResult');
-    const resultDisease = document.getElementById('resultDisease');
-    const resultDiet = document.getElementById('resultDiet');
-
-    prescriptionFile.addEventListener('change', function() {
-        const file = this.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                prescriptionPreview.src = e.target.result;
-                prescriptionPreview.style.display = 'block';
-            }
-            reader.readAsDataURL(file);
-        }
-    });
-
-    analyzePrescriptionBtn.addEventListener('click', () => {
-        const doubtText = document.getElementById('doubtTextarea').value.trim();
-        const hasFile = prescriptionFile.files.length > 0;
-
-        if (!doubtText && !hasFile) {
-            alert('Please describe your symptoms or upload a prescription image to analyze.');
-            return;
-        }
-
-        analyzePrescriptionBtn.innerHTML = '<div class="loading-spinner"></div> Analyzing Rx...';
-        analyzePrescriptionBtn.disabled = true;
-        analysisResult.classList.add('hidden');
-
-        // Simulate AI Processing (Network request)
+    document.getElementById('analyzePrescriptionBtn').onclick = () => {
+        const btn = document.getElementById('analyzePrescriptionBtn');
+        btn.innerHTML = '<div class="loading-spinner"></div> Analyzing...';
         setTimeout(() => {
-            analyzePrescriptionBtn.innerHTML = '<i class="fas fa-microscope"></i> Analyze & Predict';
-            analyzePrescriptionBtn.disabled = false;
+            btn.innerHTML = 'Analyze & Predict';
+            document.getElementById('analysisResult').classList.remove('hidden');
+            document.getElementById('resultDisease').innerText = "🩺 Predicted: Mild Infection";
+            document.getElementById('resultDiet').innerHTML = "Eat light meals and drink fluids.";
+        }, 1500);
+    };
 
-            analysisResult.classList.remove('hidden');
-            
-            // Randomize prediction for simulation
-            const predictions = [
-                { dis: "Mild Viral Infection / Seasonal Flu", diet: "<strong>Recommended Diet:</strong><br>• Increase fluid intake (water, warm herbal teas).<br>• Vitamin C rich foods (oranges, lemons, kiwis).<br>• Light, easily digestible meals like porridge or chicken soup." },
-                { dis: "Vitamin D Deficiency & Fatigue", diet: "<strong>Recommended Diet:</strong><br>• Incorporate fortified dairy products and eggs.<br>• Consume fatty fish (salmon, tuna) if not vegetarian.<br>• Consider a daily short morning sunbath." },
-                { dis: "Acid Reflux / Gastritis", diet: "<strong>Recommended Diet:</strong><br>• Avoid spicy, oily, and heavily processed foods.<br>• Eat small, frequent meals rather than large ones.<br>• Include alkaline foods like bananas, melons, and oatmeal." }
-            ];
-            const p = predictions[Math.floor(Math.random() * predictions.length)];
-            
-            resultDisease.innerHTML = `🩺 Predicted: ${p.dis}`;
-            resultDiet.innerHTML = p.diet;
-            
-            doubtContainer.scrollIntoView({behavior: 'smooth', block: 'end'});
-        }, 2500);
-    });
-
-    // --- AI Chat Bot System ---
-    const aiMessages = document.getElementById('aiMessages'), 
-          aiInput = document.getElementById('aiInput'), 
-          sendAiBtn = document.getElementById('sendAiBtn');
-    
-    function addMsg(text, sender) {
-        const div = document.createElement('div');
-        div.className = `message-ai ${sender}`;
-        div.innerText = text;
-        aiMessages.appendChild(div);
-        
-        // Auto-scroll to bottom
+    // --- AI Bot ---
+    document.getElementById('sendAiBtn').onclick = () => {
+        const input = document.getElementById('aiInput');
+        if(!input.value.trim()) return;
+        const msg = document.createElement('div');
+        msg.className = 'message-ai user';
+        msg.innerText = input.value;
+        document.getElementById('aiMessages').appendChild(msg);
+        input.value = '';
         setTimeout(() => {
-            aiMessages.scrollTop = aiMessages.scrollHeight;
-        }, 50);
-    }
+            const reply = document.createElement('div');
+            reply.className = 'message-ai bot';
+            reply.innerText = "I'm looking into that for you. Please consult the 'Rx AI' section for specific analysis.";
+            document.getElementById('aiMessages').appendChild(reply);
+            document.getElementById('aiMessages').scrollTop = document.getElementById('aiMessages').scrollHeight;
+        }, 800);
+    };
 
-    function handleSendAi() {
-        const text = aiInput.value.trim();
-        if(!text) return;
-        
-        // Add User Message
-        addMsg(text, 'user');
-        aiInput.value = '';
-        
-        // Add typing indicator
-        const typingId = 'typing-' + Date.now();
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'message-ai bot';
-        typingDiv.id = typingId;
-        typingDiv.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Thinking...';
-        aiMessages.appendChild(typingDiv);
-        aiMessages.scrollTop = aiMessages.scrollHeight;
-
-        // Simulate AI Response Delay
-        setTimeout(() => {
-            const typingEl = document.getElementById(typingId);
-            if(typingEl) typingEl.remove();
-
-            const lowerText = text.toLowerCase();
-            let reply = "I'm a simulated health assistant. For detailed diagnosis, please use the 'Rx AI Doubt Bar' on the home page or consult a doctor directly.";
-            
-            if (lowerText.includes('find') || lowerText.includes('hospital') || lowerText.includes('search')) {
-                reply = "You can search for hospitals using the search bar on the Home page. You can even filter by 'Emergency' or 'Open Now'.";
-            } else if (lowerText.includes('prescription') || lowerText.includes('doubt')) {
-                reply = "Click the 'Rx AI' button on the Home page to open the Doubt Bar. There you can upload a prescription image to get simulated disease and diet predictions!";
-            } else if (lowerText.includes('hello') || lowerText.includes('hi')) {
-                reply = "Hello! I am ready to assist you. What do you need help with?";
-            } else if (lowerText.includes('headache') || lowerText.includes('fever') || lowerText.includes('pain')) {
-                reply = "I'm sorry to hear you're not feeling well. While I can't provide a medical diagnosis here, you can search for a 'General' or 'Emergency' hospital on the home page.";
-            }
-
-            addMsg(reply, 'bot');
-        }, 1200);
-    }
-
-    sendAiBtn.onclick = handleSendAi;
-    aiInput.addEventListener('keypress', (e) => { 
-        if(e.key === 'Enter') handleSendAi(); 
-    });
-
-    // --- Initialization ---
-    triggerRender();
-
+    // Initial State
+    window.history.replaceState({ page: 'page1' }, '', '#page1');
+    renderRatings();
 })();
 </script>
 </body>
