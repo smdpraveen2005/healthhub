@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -18,7 +18,7 @@
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
         }
-        button, .nav-item, input, textarea { -webkit-tap-highlight-color: transparent; }
+        button, .nav-item { -webkit-tap-highlight-color: transparent; }
         html, body { height: 100%; background: #e2f0fd; }
         body { margin: 0; }
         .app-container {
@@ -31,7 +31,6 @@
             flex-direction: column;
             position: relative;
             box-shadow: 0 0 40px rgba(0,40,80,0.08);
-            overflow: hidden;
         }
         .pages {
             flex: 1;
@@ -66,7 +65,6 @@
             box-shadow: 0 -6px 20px rgba(10,49,71,0.04);
             transition: transform 0.2s;
             padding-bottom: env(safe-area-inset-bottom);
-            z-index: 50;
         }
         .bottom-nav.hidden { transform: translateY(100%); }
         .nav-item {
@@ -80,9 +78,8 @@
             flex: 1;
             max-width: 80px;
         }
-        .nav-item i { font-size: 24px; margin-bottom: 4px; transition: transform 0.2s; }
+        .nav-item i { font-size: 24px; margin-bottom: 4px; }
         .nav-item.active { color: #0a3147; font-weight: 600; }
-        .nav-item.active i { transform: translateY(-2px); }
         .welcome-page {
             display: flex;
             flex-direction: column;
@@ -108,13 +105,12 @@
         .app-bar .title i { color:#1e4f6b; font-size:1.05rem; }
         .app-bar .actions { display:flex; gap:8px; }
         .app-bar .actions button {
-            background:transparent; border:none; color:#4f6f89; padding:8px; border-radius:10px; cursor:pointer; transition:transform .12s ease, background .12s; font-weight: 600;
+            background:transparent; border:none; color:#4f6f89; padding:8px; border-radius:10px; cursor:pointer; transition:transform .12s ease, background .12s;
         }
         .app-bar .actions button:hover { background: rgba(10,49,71,0.04); color:#0a3147; transform:translateY(-2px); }
-        .search-section { margin-bottom:12px; margin-top: 12px; }
+        .search-section { margin-bottom:12px; }
         .search-input-wrap { position:relative; display:flex; align-items:center; }
-        .search-input-wrap .near-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#4f6f89; font-size:1rem; opacity:0.8; z-index:1; cursor: pointer; transition: 0.2s; }
-        .search-input-wrap .near-icon:hover { color: #0a3147; opacity: 1; }
+        .search-input-wrap .near-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#4f6f89; font-size:1rem; opacity:0.8; z-index:1; }
         .search-input-wrap input {
             width:100%;
             padding:14px 18px 14px 44px;
@@ -123,28 +119,19 @@
             background:#f9fcff;
             font-size:0.98rem;
             outline:none;
-            transition: border 0.2s, box-shadow 0.2s;
+            transition: border 0.2s;
         }
-        .search-input-wrap input:focus { border-color:#7fa3c2; box-shadow: 0 0 0 3px rgba(127,163,194,0.2); }
+        .search-input-wrap input:focus { border-color:#7fa3c2; }
         .search-input-wrap .mic-btn-inside, .search-input-wrap .search-btn-inside {
-            position:absolute; top:50%; transform:translateY(-50%); border-radius:999px; border:none; background:#0a3147; color:#fff; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition: transform 0.1s;
+            position:absolute; top:50%; transform:translateY(-50%); border-radius:999px; border:none; background:#0a3147; color:#fff; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer;
         }
-        .search-input-wrap .mic-btn-inside:active, .search-input-wrap .search-btn-inside:active { transform: translateY(-50%) scale(0.9); }
         .search-input-wrap .mic-btn-inside { right:58px; background:#1e4f6b; }
         .search-input-wrap .search-btn-inside { right:8px; }
         .mic-btn-inside.listening { background:#c25400; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { box-shadow:0 0 0 0 rgba(194,84,0,0.5); } 70% { box-shadow:0 0 0 10px rgba(194,84,0,0); } 100% { box-shadow:0 0 0 0 rgba(194,84,0,0); } }
-        
-        /* Filters */
-        .filter-panel { background: #f9fcff; padding: 12px; border-radius: 16px; border: 1px solid #d0e2f0; margin-bottom: 12px; display: flex; gap: 16px; }
-        .filter-panel label { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: #0a3147; font-weight: 500; cursor: pointer; }
-        .filter-panel input[type="checkbox"] { accent-color: #0a3147; width: 16px; height: 16px; }
-
         .category-chips { display:flex; gap:10px; overflow-x:auto; padding-bottom:6px; margin:8px 0 12px; -webkit-overflow-scrolling:touch; }
-        .category-chips::-webkit-scrollbar { display: none; }
         .chip { flex:0 0 auto; background:#e2f0fd; color:#1e4f6b; padding:8px 14px; border-radius:20px; font-weight:700; font-size:0.9rem; cursor:pointer; transition:0.12s; border:1px solid rgba(10,49,71,0.1); }
         .chip.active { background:#0a3147; color:#fff; box-shadow:0 10px 26px rgba(10,49,71,0.08); transform:translateY(-2px); }
-        
         /* DOUBT BAR (PRESCRIPTION ANALYSIS) */
         .doubt-bar-card {
             background: linear-gradient(135deg, #fef9e8 0%, #fff7f0 100%);
@@ -153,9 +140,7 @@
             margin: 12px 0 16px;
             border: 1px solid #ffe2bc;
             box-shadow: 0 12px 24px rgba(0,0,0,0.03);
-            transition: all 0.3s ease-in-out;
-            overflow: hidden;
-            display: none; 
+            transition: all 0.2s;
         }
         .doubt-header {
             display: flex;
@@ -166,7 +151,7 @@
             color: #b64926;
         }
         .doubt-header i { font-size: 28px; color: #c25400; }
-        .doubt-header h3 { font-size: 1.15rem; margin:0; color:#2f3e46; }
+        .doubt-header h3 { font-size: 1.25rem; margin:0; color:#2f3e46; }
         .doubt-textarea {
             width: 100%;
             padding: 12px;
@@ -176,10 +161,7 @@
             resize: vertical;
             font-size: 0.9rem;
             margin-bottom: 12px;
-            outline: none;
-            transition: border-color 0.2s;
         }
-        .doubt-textarea:focus { border-color: #c25400; }
         .upload-area {
             display: flex;
             flex-wrap: wrap;
@@ -227,7 +209,6 @@
             transition: 0.2s;
         }
         .analyze-btn:active { transform: scale(0.97); background: #9b4300; }
-        .analyze-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
         .analysis-result {
             background: #ffffffdd;
             backdrop-filter: blur(4px);
@@ -235,350 +216,111 @@
             padding: 14px;
             margin-top: 12px;
             border-left: 5px solid #c25400;
-            animation: slideIn 0.3s ease;
         }
         .result-disease { font-weight: 800; color:#0a3147; font-size:1rem; margin-bottom: 8px; }
         .result-diet { color:#2d6a4f; font-size:0.9rem; line-height:1.4; margin-top: 8px; background:#e9f5e9; padding: 10px; border-radius: 18px; }
         .loading-spinner { display: inline-block; width: 20px; height:20px; border:2px solid rgba(255,255,255,0.3); border-top-color:white; border-radius:50%; animation: spin 0.8s linear infinite; margin-right:8px; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        
-        /* Hospital List */
         .ratings-list { flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column; gap:14px; padding-bottom:8px; }
         .hospital-card {
             position:relative; background:#ffffff; border-radius:18px; padding:14px; display:flex; gap:14px; align-items:center;
-            box-shadow:0 12px 28px rgba(10,49,71,0.04); transition:transform .16s, outline-offset 0.2s; border:1px solid #e2f0fd;
-            cursor: pointer;
+            box-shadow:0 12px 28px rgba(10,49,71,0.04); transition:transform .16s; border:1px solid #e2f0fd;
         }
-        .hospital-card:hover { transform:translateY(-4px); outline: 2px solid #0a3147; outline-offset: 3px; }
+        .hospital-card:hover { transform:translateY(-6px); outline: 2px solid #0a3147; outline-offset: 3px; }
         .card-avatar { width:60px; height:60px; border-radius:12px; object-fit:cover; background:#e2f0fd; flex-shrink:0; }
         .card-body { flex:1; min-width:0; }
-        .card-body h3 { font-size:1.05rem; margin:0 0 6px; color:#0a3147; font-weight:800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .card-body .address { font-size:0.85rem; color:#4f6f89; display:flex; gap:8px; margin-bottom:8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .badges { display: flex; gap: 6px; flex-wrap: wrap; }
-        .badge { font-size:0.72rem; padding:4px 8px; border-radius:999px; background:#e2f0fd; color:#0a3147; border:1px solid #b9d4ec; font-weight: 600; }
+        .card-body h3 { font-size:1.05rem; margin:0 0 6px; color:#0a3147; font-weight:800; }
+        .card-body .address { font-size:0.85rem; color:#4f6f89; display:flex; gap:8px; margin-bottom:8px; }
+        .badge { font-size:0.72rem; padding:4px 8px; border-radius:999px; background:#e2f0fd; color:#0a3147; border:1px solid #b9d4ec; }
         .badge.open { background:#e0f2e9; color:#0a7b3d; border-color:#b0dec0; }
         .badge.closed { background:#ffe9e9; color:#b33a3a; }
-        .badge.emergency { background:#fff2e0; color:#c25400; border-color: #f7d8b5; }
-        .card-meta { display:flex; flex-direction:column; gap:8px; align-items:flex-end; min-width:110px; text-align:right; }
-        .rating-stars { color:#f7b731; display:flex; gap:4px; align-items:center; font-size: 0.9rem; }
-        .rating-stars strong { color: #0a3147; margin-left: 2px; }
-        .reviews { font-size: 0.75rem; color: #7fa3c2; }
+        .badge.emergency { background:#fff2e0; color:#c25400; }
+        .card-meta { display:flex; flex-direction:column; gap:8px; align-items:flex-end; min-width:120px; text-align:right; }
+        .rating-stars { color:#f7b731; display:flex; gap:6px; align-items:center; }
         .direction-btn-card {
-            background: #d4e8f7; border: none; border-radius: 30px; width: 36px; height: 36px;
+            background: #d4e8f7; border: none; border-radius: 30px; width: 40px; height: 40px;
             display: inline-flex; align-items: center; justify-content: center; color: #0a3147;
             cursor: pointer; transition: 0.15s; box-shadow: 0 4px 8px rgba(10,49,71,0.1);
         }
-        .direction-btn-card:hover { background: #b9d4ec; transform: scale(1.05); }
-        .details-btn { background: #e3f0fa; border: none; padding: 8px 14px; border-radius: 40px; font-weight: 600; font-size: 0.8rem; cursor: pointer; color: #0a3147; transition: 0.15s; }
-        .details-btn:hover { background: #d0e2f0; }
-        
-        /* Floating AI Button */
+        .details-btn { background: #e3f0fa; border: none; padding: 8px 14px; border-radius: 40px; font-weight: 500; font-size: 0.8rem; cursor: pointer; }
         .floating-ai {
             position: fixed; bottom: 90px; right: 20px; width: 56px; height: 56px;
             border-radius: 50%; border: none; background: #0a3147; color: white; font-size: 20px;
             box-shadow: 0 12px 30px rgba(10,49,71,0.25); display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 80; transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer; z-index: 80;
         }
-        .floating-ai:hover { transform: scale(1.05); box-shadow: 0 15px 35px rgba(10,49,71,0.3); }
-        
-        /* Detail Page Styling (Page 3) */
-        .detail-page { padding-bottom: 20px; animation: slideIn 0.3s ease; }
-        .hospital-detail-card { background: white; border-radius: 24px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-        .image-grid img { width: 100%; height: 100px; object-fit: cover; border-radius: 12px; cursor: pointer; transition: transform 0.2s; }
-        .image-grid img:hover { transform: scale(1.02); }
-        .image-grid img:first-child { grid-column: span 2; height: 180px; }
-        #detailName { font-size: 1.5rem; color: #0a3147; margin-bottom: 8px; font-weight: 800; }
-        .address-box { color: #4f6f89; font-size: 0.9rem; display: flex; gap: 8px; margin-bottom: 12px; align-items: center; }
-        #detailRating { font-weight: bold; margin-bottom: 16px; font-size: 1.1rem; color: #0a3147; }
-        #detailDesc { color: #4f6f89; line-height: 1.5; margin-bottom: 24px; font-size: 0.95rem; }
-        .rating-feedback { background: #f9fcff; padding: 16px; border-radius: 16px; margin-bottom: 24px; border: 1px solid #e2f0fd; }
-        .rating-feedback h3 { font-size: 1.1rem; color: #0a3147; margin-bottom: 12px; display: flex; gap: 8px; align-items: center; }
-        .star-rating { font-size: 28px; color: #cbd5e1; margin-bottom: 12px; cursor: pointer; display: flex; gap: 8px; }
-        .star-rating i { transition: color 0.2s, transform 0.1s; }
-        .star-rating i:hover { color: #f7b731; transform: scale(1.1); }
-        #feedbackText { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #d0e2f0; margin-bottom: 12px; resize: vertical; font-family: inherit; outline: none; transition: border-color 0.2s; }
-        #feedbackText:focus { border-color: #0a3147; }
-        .submit-feedback { background: #0a3147; color: white; border: none; padding: 12px 20px; border-radius: 20px; font-weight: 600; cursor: pointer; width: 100%; transition: 0.2s; font-size: 1rem; }
-        .submit-feedback:active { transform: scale(0.98); background: #1e4f6b; }
-        .action-buttons { display: flex; gap: 12px; margin-bottom: 16px; }
-        .booking-btn, .direction-btn { flex: 1; padding: 14px; border: none; border-radius: 40px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: transform 0.1s, background 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .booking-btn { background: #1e4f6b; color: white; }
-        .booking-btn:hover { background: #0a3147; }
-        .direction-btn { background: #e2f0fd; color: #0a3147; }
-        .direction-btn:hover { background: #d0e2f0; }
-        .back-to-search { width: 100%; padding: 14px; background: transparent; border: 1px solid #d0e2f0; border-radius: 40px; color: #4f6f89; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .back-to-search:hover { background: #f9fcff; color: #0a3147; }
-
-        /* Settings Page */
-        .settings-page { background: white; border-radius: 32px; padding: 30px 24px; border: 1px solid #e2f0fd; text-align: left; }
-        .settings-page h2 { color: #0a3147; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
-        .team-section { margin-bottom: 24px; }
-        .team-member { display: flex; align-items: center; gap: 16px; padding: 12px; background: #f9fcff; border-radius: 16px; margin-bottom: 12px; border: 1px solid #e2f0fd; }
-        .team-member i { font-size: 24px; color: #1e4f6b; background: #e2f0fd; padding: 12px; border-radius: 50%; }
-        .member-name { font-weight: bold; color: #0a3147; font-size: 1.05rem; }
-        .member-role { color: #4f6f89; font-size: 0.85rem; }
-        .version-info { text-align: center; color: #7fa3c2; font-size: 0.85rem; margin-top: 32px; }
-
-        /* AI Page */
-        .ai-page { background: white; border-radius: 32px; padding: 16px; display: flex; flex-direction: column; height: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .ai-messages { flex:1; overflow-y:auto; background:#f0f8ff; border-radius:24px; padding:16px; margin-bottom:16px; display:flex; flex-direction:column; gap:12px; border: 1px solid #e2f0fd; scroll-behavior: smooth; }
-        .message-ai { padding:12px 16px; border-radius:20px; max-width:85%; font-size:0.95rem; line-height: 1.4; word-wrap: break-word; animation: slideIn 0.2s ease; }
-        .message-ai.user { background:#1e4f6b; color:white; align-self:flex-end; border-bottom-right-radius: 4px; }
-        .message-ai.bot { background:#ffffff; color:#0a3147; align-self:flex-start; border-bottom-left-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2f0fd; }
-        .ai-input-area { display: flex; gap: 10px; align-items: center; background: #f9fcff; padding: 8px 12px; border-radius: 40px; border: 1px solid #d0e2f0; }
-        .ai-input-area input { flex: 1; border: none; background: transparent; outline: none; font-size: 1rem; padding: 8px; color: #0a3147; }
-        .ai-input-area input::placeholder { color: #7fa3c2; }
-        .ai-input-area button { background: #0a3147; color: white; border: none; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.1s, background 0.2s; font-size: 1.1rem; flex-shrink: 0; }
-        .ai-input-area button:active { transform: scale(0.9); background: #1e4f6b; }
-
-        /* Modals & Lightbox */
-        .modal { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:100; }
+        .modal { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:60; }
         .modal.hidden { display:none; }
         .modal-backdrop { position:absolute; inset:0; background:rgba(10,49,71,0.5); backdrop-filter: blur(4px); }
-        .modal-content { position:relative; width:92%; max-width: 400px; background:white; border-radius:28px; overflow:hidden; z-index: 101; }
-        .modal-close { position: absolute; top: 12px; right: 16px; background: #e2f0fd; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 20px; color: #0a3147; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; }
-        .modal-body { padding: 40px 20px 20px; }
-        .modal-body iframe { width: 100%; height: 200px; border: none; border-radius: 12px; }
-
-        .lightbox { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:flex; align-items:center; justify-content:center; z-index:110; backdrop-filter:blur(8px); }
+        .modal-content { position:relative; width:92%; background:white; border-radius:28px; overflow:hidden; }
+        .lightbox { position:fixed; inset:0; background:rgba(0,0,0,0.9); display:flex; align-items:center; justify-content:center; z-index:100; backdrop-filter:blur(8px); }
         .lightbox.hidden { display:none; }
-        .lightbox-content { position: relative; }
-        .lightbox-content img { max-width:90vw; max-height:80vh; border-radius:12px; object-fit: contain; }
-        .lightbox-close { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; }
-        .lightbox-prev, .lightbox-next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.2); color: white; border: none; width: 44px; height: 44px; border-radius: 50%; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-        .lightbox-prev.disabled, .lightbox-next.disabled { opacity: 0.3; cursor: default; }
-
-        .hidden { display: none !important; }
-        .ripple-el { position:absolute; border-radius:50%; background:rgba(10,49,71,0.08); transform:scale(0); animation:ripple 600ms linear; pointer-events:none; z-index: 0; }
+        .lightbox-content img { max-width:90vw; max-height:90vh; border-radius:12px; }
+        .settings-page { background: white; border-radius: 32px; padding: 30px 24px; border: 1px solid #e2f0fd; text-align: left; }
+        .ai-page { background: white; border-radius: 32px; padding: 16px; display: flex; flex-direction: column; height: 100%; }
+        .ai-messages { flex:1; overflow-y:auto; background:#f0f8ff; border-radius:28px; padding:16px; margin-bottom:16px; display:flex; flex-direction:column; gap:12px; }
+        .message-ai { padding:10px 14px; border-radius:20px; max-width:80%; font-size:0.9rem; }
+        .message-ai.user { background:#1e4f6b; color:white; align-self:flex-end; }
+        .message-ai.bot { background:#e2f0fd; color:#0a3147; align-self:flex-start; }
+        .hidden { display: none; }
+        button:active { transform: scale(0.96); }
+        .ripple-el { position:absolute; border-radius:50%; background:rgba(10,49,71,0.08); transform:scale(0); animation:ripple 600ms linear; pointer-events:none; }
         @keyframes ripple { to { transform:scale(4); opacity:0; } }
-        .shimmer-row { height:100px; border-radius:18px; background: linear-gradient(90deg,#f0f8ff 25%,#d9e8f5 37%,#f0f8ff 63%); background-size:400% 100%; animation:shimmer 1.2s infinite; border: 1px solid #e2f0fd; }
-        @keyframes shimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+        .shimmer-row { height:90px; border-radius:14px; background: linear-gradient(90deg,#f0f8ff 25%,#d9e8f5 37%,#f0f8ff 63%); background-size:400% 100%; animation:shimmer 1.2s infinite; }
     </style>
 </head>
 <body>
 <div class="app-container">
     <div class="pages" id="pagesContainer">
-        <!-- Page 1: Splash/Welcome -->
-        <div id="page1" class="page active">
-            <div class="welcome-page">
-                <div class="logo-big"><i class="fas fa-hospital-user"></i></div>
-                <h1>Health<span style="color:#1e4f6b;">Hub</span></h1>
-                <div class="find-text"><i class="fas fa-map-marker-alt"></i> Find my hospital</div>
-                <button class="continue-btn" id="continueBtn">Continue <i class="fas fa-arrow-right"></i></button>
-            </div>
-        </div>
-
-        <!-- Page 2: Main Search & Listing -->
+        <div id="page1" class="page active"><div class="welcome-page"><div class="logo-big"><i class="fas fa-hospital-user"></i></div><h1>Health<span style="color:#1e4f6b;">Hub</span></h1><div class="find-text"><i class="fas fa-map-marker-alt"></i> Find my hospital</div><button class="continue-btn" id="continueBtn">Continue <i class="fas fa-arrow-right"></i></button></div></div>
         <div id="page2" class="page">
-            <div class="app-bar">
-                <div class="title"><i class="fas fa-map-marker-alt"></i><span>Find Hospital</span></div>
-                <div class="actions">
-                    <button id="filterIcon" title="Filters"><i class="fas fa-sliders-h"></i></button>
-                    <button id="toggleDoubtBtn" style="background:#f5e6d3; color:#c25400; font-size: 0.85rem;" title="Medical Doubt Bar"><i class="fas fa-prescription-bottle"></i> Rx AI</button>
-                </div>
-            </div>
-
-            <div class="search-section">
-                <div class="search-input-wrap">
-                    <i class="fas fa-location-crosshairs near-icon" id="nearMeBtn" title="Near Me"></i>
-                    <input type="text" id="searchInput" placeholder="Search clinic, hospital, doctor...">
-                    <button class="mic-btn-inside" id="voiceSearchBtn" title="Voice Search"><i class="fas fa-microphone"></i></button>
-                    <button class="search-btn-inside" id="searchBtn" title="Search"><i class="fas fa-search"></i></button>
-                </div>
-            </div>
-
-            <div class="filter-panel hidden" id="filterPanel">
-                <label><input type="checkbox" id="filterOpenNow"> Open now</label>
-                <label><input type="checkbox" id="filterEmergency"> Emergency</label>
-            </div>
-
-            <div class="category-chips" id="categoryChips">
-                <button class="chip active" data-cat="">All</button>
-                <button class="chip" data-cat="General">General</button>
-                <button class="chip" data-cat="Cardiology">Cardiology</button>
-                <button class="chip" data-cat="Oncology">Oncology</button>
-                <button class="chip" data-cat="Dental">Dental</button>
-            </div>
+            <div class="app-bar"><div class="title"><i class="fas fa-map-marker-alt"></i><span>Find Hospital</span></div><div class="actions"><button id="searchIcon"><i class="fas fa-search"></i></button><button id="filterIcon"><i class="fas fa-sliders-h"></i></button><button id="toggleDoubtBtn" style="background:#f5e6d3; color:#c25400;" title="Medical Doubt Bar"><i class="fas fa-prescription-bottle"></i> Rx</button></div></div>
+            <div class="search-section"><div class="search-input-wrap"><i class="fas fa-map-marker-alt near-icon" id="nearMeBtn"></i><input type="text" id="searchInput" placeholder="Search hospital…"><button class="mic-btn-inside" id="voiceSearchBtn"><i class="fas fa-microphone"></i></button><button class="search-btn-inside" id="searchBtn"><i class="fas fa-search"></i></button></div></div>
+            <div class="filter-panel hidden" id="filterPanel"><label><input type="checkbox" id="filterOpenNow"> Open now</label><label><input type="checkbox" id="filterEmergency"> Emergency available</label></div>
+            <div class="category-chips" id="categoryChips"><button class="chip active" data-cat="">All</button><button class="chip" data-cat="General">General</button><button class="chip" data-cat="Cardiology">Cardiology</button><button class="chip" data-cat="Oncology">Oncology</button><button class="chip" data-cat="Dental">Dental</button><button class="chip" data-cat="Emergency">Emergency</button></div>
             
-            <!-- DOUBT BAR -->
+            <!-- DOUBT BAR / PRESCRIPTION ANALYSIS (NEW) -->
             <div id="doubtBarContainer" class="doubt-bar-card">
-                <div class="doubt-header"><i class="fas fa-file-prescription"></i><h3>📋 Medical Doubt Bar · Rx AI</h3></div>
-                <textarea id="doubtTextarea" class="doubt-textarea" rows="2" placeholder="Describe your symptoms or medical doubt (optional)..."></textarea>
+                <div class="doubt-header"><i class="fas fa-file-prescription"></i><h3>📋 Medical Doubt Bar · Prescription AI</h3></div>
+                <textarea id="doubtTextarea" class="doubt-textarea" rows="2" placeholder="Describe your doubt or symptoms (optional) ..."></textarea>
                 <div class="upload-area">
                     <label class="file-label" for="prescriptionFile"><i class="fas fa-cloud-upload-alt"></i> Upload Prescription</label>
                     <input type="file" id="prescriptionFile" accept="image/*" style="display:none">
                     <img id="prescriptionPreview" class="prescription-preview" alt="preview">
                 </div>
-                <button id="analyzePrescriptionBtn" class="analyze-btn"><i class="fas fa-microscope"></i> Analyze & Predict</button>
-                
+                <button id="analyzePrescriptionBtn" class="analyze-btn"><i class="fas fa-microscope"></i> Analyze & Predict Disease + Diet</button>
                 <div id="analysisResult" class="analysis-result hidden">
                     <div id="resultDisease" class="result-disease"></div>
                     <div id="resultDiet" class="result-diet"></div>
                 </div>
-                <div class="banner-cta" style="font-size:0.75rem; margin-top:10px; text-align:center; color: #8c5332; font-weight: 500;">
-                    🔬 AI simulation: upload a prescription to get disease & diet predictions.
-                </div>
+                <div class="banner-cta" style="font-size:0.7rem; margin-top:8px; text-align:center;">🔬 AI simulation · upload any prescription image → get disease & custom diet plan</div>
             </div>
 
-            <div class="ratings-list" id="ratingsList">
-                <!-- Dynamically populated -->
-            </div>
+            <div class="ratings-list" id="ratingsList"></div>
         </div>
-
-        <!-- Page 3: Hospital Details -->
-        <div id="page3" class="page">
-            <div class="detail-page">
-                <div class="hospital-detail-card">
-                    <div class="image-grid" id="hospitalImages"></div>
-                    <h2 id="detailName">Hospital Name</h2>
-                    <div class="address-box"><i class="fas fa-map-pin"></i><span id="detailAddress">Address</span></div>
-                    <div id="detailRating"><i class="fas fa-star" style="color:#f7b731;"></i> 4.5/5</div>
-                    <div id="detailDesc">Description...</div>
-                    
-                    <div class="rating-feedback">
-                        <h3><i class="fas fa-star-half-alt" style="color: #f7b731;"></i> Rate & Feedback</h3>
-                        <div class="star-rating" id="starRating">
-                            <i class="far fa-star" data-value="1"></i>
-                            <i class="far fa-star" data-value="2"></i>
-                            <i class="far fa-star" data-value="3"></i>
-                            <i class="far fa-star" data-value="4"></i>
-                            <i class="far fa-star" data-value="5"></i>
-                        </div>
-                        <textarea id="feedbackText" placeholder="Share your experience..." rows="3"></textarea>
-                        <button class="submit-feedback" id="submitFeedbackBtn">Submit Feedback</button>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="booking-btn" id="bookingBtn"><i class="far fa-calendar-check"></i> Book</button>
-                        <button class="direction-btn" id="directionBtn"><i class="fas fa-directions"></i> Route</button>
-                    </div>
-                    <button class="back-to-search" id="backToSearchBtn"><i class="fas fa-arrow-left"></i> Back to Search</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Page 4: Settings -->
-        <div id="page4" class="page">
-            <div class="settings-page">
-                <h2><i class="fas fa-cog"></i> Settings & Info</h2>
-                <div class="team-section">
-                    <h3 style="color:#0a3147; margin-bottom: 12px; font-size: 1.1rem;">Development Team</h3>
-                    <div class="team-member">
-                        <i class="fas fa-user-tie"></i>
-                        <div>
-                            <div class="member-name">THIRUSELVAM.D</div>
-                            <div class="member-role">Founder & CEO</div>
-                        </div>
-                    </div>
-                    <div class="team-member">
-                        <i class="fas fa-user-astronaut"></i>
-                        <div>
-                            <div class="member-name">MADHESH.G</div>
-                            <div class="member-role">Co-founder & CTO</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="version-info">HealthHub App Version 2.1.0<br>© 2025 HealthHub Inc.</div>
-            </div>
-        </div>
-
-        <!-- Page 5: AI Bot -->
-        <div id="page5" class="page">
-            <div class="ai-page">
-                <div class="ai-messages" id="aiMessages">
-                    <div class="message-ai bot">👋 Hello! I'm HealthHub's AI assistant. How can I help you today?</div>
-                </div>
-                <div class="ai-input-area">
-                    <input type="text" id="aiInput" placeholder="Type your health question...">
-                    <button id="sendAiBtn"><i class="fas fa-paper-plane"></i></button>
-                </div>
-            </div>
-        </div>
+        <div id="page3" class="page"><div class="detail-page"><div class="hospital-detail-card"><div class="image-grid" id="hospitalImages"></div><h2 id="detailName"></h2><div class="address-box"><i class="fas fa-map-pin"></i><span id="detailAddress"></span></div><div id="detailRating"></div><div id="detailDesc"></div><div class="rating-feedback"><h3><i class="fas fa-star"></i> Rate this hospital</h3><div class="star-rating" id="starRating"><i class="far fa-star" data-value="1"></i><i class="far fa-star" data-value="2"></i><i class="far fa-star" data-value="3"></i><i class="far fa-star" data-value="4"></i><i class="far fa-star" data-value="5"></i></div><textarea id="feedbackText" placeholder="Feedback..." rows="3"></textarea><button class="submit-feedback" id="submitFeedbackBtn">Submit feedback</button></div><div class="action-buttons"><button class="booking-btn" id="bookingBtn">Book</button><button class="direction-btn" id="directionBtn">Directions</button></div><button class="back-to-search" id="backToSearchBtn">Back</button></div></div></div>
+        <div id="page4" class="page"><div class="settings-page"><i class="fas fa-cog"></i><h2>Settings</h2><div class="team-section"><div class="team-member"><i class="fas fa-user-tie"></i><div><div class="member-name">THIRUSELVAM.D</div><div class="member-role">Founder & CEO</div></div></div><div class="team-member"><i class="fas fa-user"></i><div><div class="member-name">MADHESH.G</div><div class="member-role">Co-founder & CTO</div></div></div></div><div class="version-info">Version 2.1.0 · © 2025 HealthHub</div></div></div>
+        <div id="page5" class="page"><div class="ai-page"><div class="ai-messages" id="aiMessages"><div class="message-ai bot">👋 Hi! I'm your health assistant.</div></div><div class="ai-input-area"><input type="text" id="aiInput" placeholder="Type..."><button id="sendAiBtn"><i class="fas fa-paper-plane"></i></button></div></div></div>
     </div>
-
-    <!-- Bottom Nav -->
-    <div class="bottom-nav hidden" id="bottomNav">
-        <div class="nav-item" id="navAI">
-            <i class="fas fa-robot"></i><span>AI Bot</span>
-        </div>
-        <div class="nav-item active" id="navHome">
-            <i class="fas fa-home"></i><span>Home</span>
-        </div>
-        <div class="nav-item" id="navSettings">
-            <i class="fas fa-cog"></i><span>Settings</span>
-        </div>
-    </div>
-
-    <!-- Floating AI -->
-    <button class="floating-ai" id="floatingAiBtn" title="Chat with AI">
-        <i class="fas fa-comment-medical"></i>
-    </button>
-
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox hidden">
-        <button class="lightbox-close" id="lightboxClose">&times;</button>
-        <button class="lightbox-prev" id="lightboxPrev">&#10094;</button>
-        <button class="lightbox-next" id="lightboxNext">&#10095;</button>
-        <div class="lightbox-content">
-            <img id="lightboxImg" alt="Hospital">
-        </div>
-    </div>
+    <div class="bottom-nav" id="bottomNav"><div class="nav-item" id="navAI"><i class="fas fa-robot"></i><span>AI Bot</span></div><div class="nav-item" id="navHome"><i class="fas fa-home"></i><span>Home</span></div><div class="nav-item" id="navSettings"><i class="fas fa-cog"></i><span>Settings</span></div></div>
+    <button class="floating-ai" id="floatingAiBtn"><i class="fas fa-robot"></i></button>
+    <div id="lightbox" class="lightbox hidden"><button class="lightbox-close" id="lightboxClose">&times;</button><button class="lightbox-prev" id="lightboxPrev">&#10094;</button><button class="lightbox-next" id="lightboxNext">&#10095;</button><div class="lightbox-content"><img id="lightboxImg"></div></div>
+    <div id="videoModal" class="modal hidden"><div class="modal-backdrop"></div><div class="modal-content"><button id="videoModalClose" class="modal-close">×</button><div class="modal-body"><iframe data-src="https://www.youtube.com/embed/1W5K7re7Zcs"></iframe></div></div></div>
 </div>
 
 <script>
 (function(){
-    // --- Data ---
     const hospitals = [
-        { name: "Appolo Kallai Hospital", category: "General", rating: 4.5, reviews: 120, openNow: true, emergency: true, address: "25b/ salem main road kallakurichi", desc: "Top-tier multi-specialty hospital equipped with modern infrastructure and a 24/7 emergency care unit.", images: ["https://picsum.photos/id/20/400/300", "https://picsum.photos/id/26/400/300", "https://picsum.photos/id/28/400/300", "https://picsum.photos/id/29/400/300"] },
-        { name: "SKP Hospital", category: "Cardiology", rating: 4.2, reviews: 86, openNow: false, emergency: false, address: "456 Oak Ave, Northridge", desc: "Specialized in advanced cardiac care and comprehensive cardiovascular health programs.", images: ["https://picsum.photos/id/15/400/300","https://picsum.photos/id/16/400/300","https://picsum.photos/id/17/400/300","https://picsum.photos/id/18/400/300"] },
-        { name: "Kumar Hospital", category: "Oncology", rating: 4.7, reviews: 200, openNow: true, emergency: false, address: "789 Pine Ln, Westside", desc: "Renowned oncology center offering state-of-the-art cancer treatment and radiation therapy.", images: ["https://picsum.photos/id/42/400/300","https://picsum.photos/id/43/400/300","https://picsum.photos/id/44/400/300","https://picsum.photos/id/45/400/300"] },
-        { name: "Barath Clinic", category: "Dental", rating: 4.0, reviews: 48, openNow: false, emergency: true, address: "321 Beach Blvd, Seaport", desc: "Expert dental care, orthodontics, and walk-in trauma handling capabilities.", images: ["https://picsum.photos/id/62/400/300","https://picsum.photos/id/63/400/300","https://picsum.photos/id/64/400/300","https://picsum.photos/id/65/400/300"] }
+        { name: "Appolo Kallai Hospital", category: "General", rating: 4.5, reviews: 120, openNow: true, emergency: true, address: "25b/ salem main road kallakurichi", desc: "Multi-specialty with 24/7 emergency.", images: ["https://picsum.photos/id/20/300/180", "https://picsum.photos/id/26/300/180", "https://picsum.photos/id/28/300/180", "https://picsum.photos/id/29/300/180"] },
+        { name: "SKP Hospital", category: "Cardiology", rating: 4.2, reviews: 86, openNow: false, emergency: false, address: "456 Oak Ave, Northridge", desc: "Advanced cardiac care.", images: ["https://picsum.photos/id/15/300/180","https://picsum.photos/id/16/300/180","https://picsum.photos/id/17/300/180","https://picsum.photos/id/18/300/180"] },
+        { name: "Kumar Hospital", category: "Oncology", rating: 4.7, reviews: 200, openNow: true, emergency: false, address: "789 Pine Ln, Westside", desc: "Oncology & pediatric specialties.", images: ["https://picsum.photos/id/42/300/180","https://picsum.photos/id/43/300/180","https://picsum.photos/id/44/300/180","https://picsum.photos/id/45/300/180"] },
+        { name: "Barath Clinic", category: "Dental", rating: 4.0, reviews: 48, openNow: false, emergency: true, address: "321 Beach Blvd, Seaport", desc: "Walk-in, orthopedics & rehab.", images: ["https://picsum.photos/id/62/300/180","https://picsum.photos/id/63/300/180","https://picsum.photos/id/64/300/180","https://picsum.photos/id/65/300/180"] }
     ];
-
     let selectedHospitalIndex = 0;
     let activeCategory = '';
     let nearMeActive = false;
 
-    // --- History Management (FIXES THE BACK BUTTON ISSUE) ---
-    // This intercepts the browser back button so it navigates internally instead of closing the site.
-    window.addEventListener('popstate', (event) => {
-        if (event.state && event.state.page) {
-            internalShowPage(event.state.page, false);
-        } else {
-            // Default behavior if no state (usually back to home)
-            internalShowPage('page2', false);
-        }
-    });
-
-    function showPage(pageId) {
-        // Push state to browser history
-        window.history.pushState({ page: pageId }, '', '#' + pageId);
-        internalShowPage(pageId);
-    }
-
-    function internalShowPage(pageId, updateHistory = true) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        const targetPage = document.getElementById(pageId);
-        if (targetPage) targetPage.classList.add('active');
-
-        if(pageId === 'page1') {
-            bottomNav.classList.add('hidden');
-            floatingAiBtn.classList.add('hidden');
-        } else {
-            bottomNav.classList.remove('hidden');
-            if(pageId !== 'page5') floatingAiBtn.classList.remove('hidden'); else floatingAiBtn.classList.add('hidden');
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            if(pageId === 'page2' || pageId === 'page3') document.getElementById('navHome').classList.add('active');
-            else if(pageId === 'page4') document.getElementById('navSettings').classList.add('active');
-            else if(pageId === 'page5') document.getElementById('navAI').classList.add('active');
-            document.getElementById('pagesContainer').scrollTop = 0;
-        }
-    }
-
-    // --- DOM Elements ---
+    // DOM refs
     const bottomNav = document.getElementById('bottomNav');
     const searchInput = document.getElementById('searchInput');
     const ratingsDiv = document.getElementById('ratingsList');
@@ -592,152 +334,155 @@
     const voiceSearchBtn = document.getElementById('voiceSearchBtn');
     const toggleDoubtBtn = document.getElementById('toggleDoubtBtn');
     const doubtContainer = document.getElementById('doubtBarContainer');
-    const floatingAiBtn = document.getElementById('floatingAiBtn');
 
-    // --- Search & Rendering ---
     let searchTimeout;
-    function triggerRender() {
-        clearTimeout(searchTimeout);
-        ratingsDiv.innerHTML = '<div class="shimmer-row"></div><div class="shimmer-row"></div>';
-        searchTimeout = setTimeout(() => renderRatings(searchInput.value.trim()), 300);
-    }
-
+    function triggerRender() { clearTimeout(searchTimeout); ratingsDiv.innerHTML = '<div class="shimmer-row"></div><div class="shimmer-row"></div>'; searchTimeout = setTimeout(() => renderRatings(searchInput.value.trim()), 320); }
     function renderRatings(filter = '') {
         let filtered = hospitals.filter(h => (h.name + h.address + h.category).toLowerCase().includes(filter.toLowerCase()));
         if (activeCategory) filtered = filtered.filter(h => h.category === activeCategory);
         if (filterOpenNow.checked) filtered = filtered.filter(h => h.openNow);
         if (filterEmergency.checked) filtered = filtered.filter(h => h.emergency);
-        
         if (nearMeActive) filtered.sort((a,b)=>b.rating - a.rating);
         else filtered.sort((a,b)=>a.name.localeCompare(b.name));
-
-        if(!filtered.length){
-            ratingsDiv.innerHTML=`<div style="padding:40px; text-align:center; color:#7fa3c2;">No results found.</div>`;
-            return;
-        }
-
+        if(!filtered.length){ ratingsDiv.innerHTML=`<div style="padding:36px;text-align:center;">🏥 No hospitals</div>`; return; }
         let html='';
-        filtered.forEach(h => {
+        filtered.forEach(h=>{
             const origIdx = hospitals.indexOf(h);
-            let stars='';
-            let full = Math.floor(h.rating);
-            for(let s=0; s<5; s++) stars += s < full ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
-            
-            html += `
-                <div class="hospital-card" data-index="${origIdx}">
-                    <img class="card-avatar" src="${h.images[0]}" loading="lazy">
-                    <div class="card-body">
-                        <h3>${h.name}</h3>
-                        <div class="address"><i class="fas fa-map-marker-alt"></i>${h.address}</div>
-                        <div class="badges">
-                            ${h.openNow ? '<span class="badge open">Open now</span>' : '<span class="badge closed">Closed</span>'}
-                            ${h.emergency ? '<span class="badge emergency">ER</span>' : ''}
-                        </div>
-                    </div>
-                    <div class="card-meta">
-                        <div class="rating-stars">${stars} <strong>${h.rating}</strong></div>
-                        <div style="display:flex; gap:8px; margin-top:8px;">
-                            <button class="details-btn view-details">View</button>
-                        </div>
-                    </div>
-                </div>`;
+            let stars=''; let full=Math.floor(h.rating); let half=h.rating-full>=0.5;
+            for(let s=0;s<5;s++){ if(s<full) stars+='<i class="fas fa-star"></i>'; else if(s===full && half) stars+='<i class="fas fa-star-half-alt"></i>'; else stars+='<i class="far fa-star"></i>'; }
+            html+=`<div class="hospital-card" data-index="${origIdx}"><img class="card-avatar" src="${h.images[0]}"><div class="card-body"><h3>${h.name}</h3><div class="address"><i class="fas fa-map-marker-alt"></i>${h.address}</div><div class="badges">${h.openNow?'<span class="badge open">Open now</span>':'<span class="badge closed">Closed</span>'}${h.emergency?'<span class="badge emergency">Emergency</span>':''}</div></div><div class="card-meta"><div class="rating-stars">${stars} <strong>${h.rating}</strong></div><div class="reviews">${h.reviews} reviews</div><div style="display:flex; gap:6px;"><button class="direction-btn-card" data-address="${h.address}"><i class="fas fa-location-arrow"></i></button><button class="details-btn view-details">View</button></div></div></div>`;
         });
         ratingsDiv.innerHTML = html;
-
-        document.querySelectorAll('.hospital-card').forEach(card => {
-            card.onclick = () => {
-                selectedHospitalIndex = parseInt(card.dataset.index);
-                populateHospitalDetail(selectedHospitalIndex);
-                showPage('page3');
-            };
+        document.querySelectorAll('.hospital-card').forEach(card=>{
+            card.addEventListener('click',(e)=>{ if(e.target.closest('.view-details') || e.target.closest('.direction-btn-card')) return; const idx=card.dataset.index; if(idx){ selectedHospitalIndex=parseInt(idx); populateHospitalDetail(selectedHospitalIndex); showPage('page3'); } });
+            card.addEventListener('pointerdown',(ev)=>{ const ripple=document.createElement('span'); ripple.className='ripple-el'; const rect=card.getBoundingClientRect(); const size=Math.max(rect.width,rect.height); ripple.style.width=ripple.style.height=size+'px'; ripple.style.left=(ev.clientX-rect.left-size/2)+'px'; ripple.style.top=(ev.clientY-rect.top-size/2)+'px'; card.appendChild(ripple); setTimeout(()=>ripple.remove(),600); });
         });
+        document.querySelectorAll('.view-details').forEach(btn=>btn.addEventListener('click',(e)=>{ const card=e.target.closest('.hospital-card'); const idx=card.dataset.index; if(idx){ selectedHospitalIndex=parseInt(idx); populateHospitalDetail(selectedHospitalIndex); showPage('page3'); } }));
+        document.querySelectorAll('.direction-btn-card').forEach(btn=>btn.addEventListener('click',(e)=>{ e.stopPropagation(); const addr=btn.dataset.address; if(addr) window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`,'_blank'); }));
     }
-
     function populateHospitalDetail(idx){
-        const h = hospitals[idx];
-        document.getElementById('detailName').innerText = h.name;
-        document.getElementById('detailAddress').innerText = h.address;
-        document.getElementById('detailRating').innerHTML = `<i class="fas fa-star" style="color:#f7b731;"></i> ${h.rating}/5`;
-        document.getElementById('detailDesc').innerText = h.desc;
-        let imgs = ''; 
-        h.images.forEach((src, i) => imgs += `<img src="${src}" data-index="${i}">`);
-        document.getElementById('hospitalImages').innerHTML = imgs;
-        document.querySelectorAll('#hospitalImages img').forEach(img => img.onclick = () => openLightbox(idx, parseInt(img.dataset.index)));
+        const h=hospitals[idx];
+        document.getElementById('detailName').innerText=h.name;
+        document.getElementById('detailAddress').innerText=h.address;
+        document.getElementById('detailRating').innerHTML=`<i class="fas fa-star" style="color:#f7b731;"></i> ${h.rating}/5`;
+        document.getElementById('detailDesc').innerText=h.desc;
+        let imgs=''; h.images.forEach((src,i)=>{ imgs+=`<img loading="lazy" src="${src}" data-index="${i}">`; });
+        document.getElementById('hospitalImages').innerHTML=imgs;
+        document.querySelectorAll('#hospitalImages img').forEach(img=>img.addEventListener('click',()=>{ openLightbox(idx,parseInt(img.dataset.index)); }));
     }
-
-    // --- Lightbox ---
-    let curHospIdx = 0, curImgIdx = 0;
-    const lightbox = document.getElementById('lightbox'), lbImg = document.getElementById('lightboxImg');
-    function openLightbox(hi, ii){ curHospIdx = hi; curImgIdx = ii; updateLb(); lightbox.classList.remove('hidden'); }
-    function updateLb(){ lbImg.src = hospitals[curHospIdx].images[curImgIdx]; }
-    document.getElementById('lightboxClose').onclick = () => lightbox.classList.add('hidden');
-    document.getElementById('lightboxPrev').onclick = () => { if(curImgIdx > 0) { curImgIdx--; updateLb(); } };
-    document.getElementById('lightboxNext').onclick = () => { if(curImgIdx < hospitals[curHospIdx].images.length - 1) { curImgIdx++; updateLb(); } };
-
-    // --- Event Bindings ---
-    document.getElementById('continueBtn').onclick = () => showPage('page2');
-    document.getElementById('navHome').onclick = () => showPage('page2');
-    document.getElementById('navSettings').onclick = () => showPage('page4');
-    document.getElementById('navAI').onclick = () => showPage('page5');
-    floatingAiBtn.onclick = () => showPage('page5');
+    function openLightbox(hospIdx,imgIdx){ currentHospitalIndex=hospIdx; currentImageIndex=imgIdx; updateLightboxImage(); lightbox.classList.remove('hidden'); }
+    let currentHospitalIndex=0, currentImageIndex=0;
+    function updateLightboxImage(){ const imgs=hospitals[currentHospitalIndex].images; lightboxImg.src=imgs[currentImageIndex]; lightboxPrev.classList.toggle('disabled',currentImageIndex===0); lightboxNext.classList.toggle('disabled',currentImageIndex===imgs.length-1); }
+    const lightbox=document.getElementById('lightbox'), lightboxImg=document.getElementById('lightboxImg'), lightboxClose=document.getElementById('lightboxClose'), lightboxPrev=document.getElementById('lightboxPrev'), lightboxNext=document.getElementById('lightboxNext');
+    lightboxClose.onclick=()=>lightbox.classList.add('hidden'); lightboxPrev.onclick=()=>{ if(currentImageIndex>0){ currentImageIndex--; updateLightboxImage(); } }; lightboxNext.onclick=()=>{ if(currentHospitalIndex>=0 && currentImageIndex<hospitals[currentHospitalIndex].images.length-1){ currentImageIndex++; updateLightboxImage(); } };
+    function showPage(pageId){
+        document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        if(pageId==='page1') bottomNav.classList.add('hidden');
+        else { bottomNav.classList.remove('hidden'); document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); if(pageId==='page2'||pageId==='page3') document.getElementById('navHome').classList.add('active'); else if(pageId==='page4') document.getElementById('navSettings').classList.add('active'); else if(pageId==='page5') document.getElementById('navAI').classList.add('active'); }
+    }
+    document.getElementById('continueBtn').onclick=()=>showPage('page2');
+    document.getElementById('navHome').onclick=()=>showPage('page2');
+    document.getElementById('navSettings').onclick=()=>showPage('page4');
+    document.getElementById('navAI').onclick=()=>showPage('page5');
+    document.getElementById('backToSearchBtn').onclick=()=>showPage('page2');
+    document.getElementById('bookingBtn').onclick=()=>{ window.open('https://forms.google.com','_blank'); alert('Booking mock'); };
+    document.getElementById('directionBtn').onclick=()=>{ const addr=hospitals[selectedHospitalIndex]?.address; if(addr) window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addr)}`,'_blank'); };
+    searchBtn.onclick=triggerRender; searchInput.addEventListener('input',triggerRender);
+    filterIcon.onclick=()=>filterPanel.classList.toggle('hidden');
+    filterOpenNow.onchange=triggerRender; filterEmergency.onchange=triggerRender;
+    categoryChips.forEach(chip=>{ chip.onclick=()=>{ categoryChips.forEach(c=>c.classList.remove('active')); chip.classList.add('active'); activeCategory=chip.dataset.cat; triggerRender(); }; });
+    nearMeBtn.onclick=()=>{ nearMeActive=!nearMeActive; nearMeBtn.style.opacity=nearMeActive?'1':'0.6'; triggerRender(); };
+    document.getElementById('floatingAiBtn').onclick=()=>showPage('page5');
+    const videoModal=document.getElementById('videoModal'), videoModalClose=document.getElementById('videoModalClose'), watchVideoBtn=document.getElementById('watchVideoBtn');
+    if(watchVideoBtn) watchVideoBtn.onclick=()=>{ videoModal.classList.remove('hidden'); const ifr=videoModal.querySelector('iframe'); if(!ifr.src) ifr.src=ifr.dataset.src; };
+    videoModalClose.onclick=()=>{ videoModal.classList.add('hidden'); videoModal.querySelector('iframe').src=''; };
+    let recognition=null; if('webkitSpeechRecognition' in window){ const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition; recognition=new SpeechRecognition(); recognition.lang='en-US'; recognition.onstart=()=>{ voiceSearchBtn.classList.add('listening'); voiceSearchBtn.innerHTML='<i class="fas fa-microphone-slash"></i>'; }; recognition.onend=()=>{ voiceSearchBtn.classList.remove('listening'); voiceSearchBtn.innerHTML='<i class="fas fa-microphone"></i>'; }; recognition.onresult=(e)=>{ searchInput.value=e.results[0][0].transcript; triggerRender(); }; recognition.onerror=()=>{ voiceSearchBtn.classList.remove('listening'); alert('Voice error'); }; voiceSearchBtn.onclick=()=>{ if(recognition){ if(voiceSearchBtn.classList.contains('listening')) recognition.stop(); else recognition.start(); } else alert('Not supported'); }; } else voiceSearchBtn.style.display='none';
+    // AI chat
+    const aiMessages=document.getElementById('aiMessages'), aiInput=document.getElementById('aiInput'), sendAiBtn=document.getElementById('sendAiBtn');
+    function addMsg(txt,sender){ const d=document.createElement('div'); d.className=`message-ai ${sender}`; d.innerText=txt; aiMessages.appendChild(d); aiMessages.scrollTop=aiMessages.scrollHeight; }
+    sendAiBtn.onclick=()=>{ const t=aiInput.value.trim(); if(!t)return; addMsg(t,'user'); aiInput.value=''; setTimeout(()=>{ addMsg(['You can search hospitals','Ratings are trustworthy','Use booking for appointment','I can help with health doubts'][Math.floor(Math.random()*4)],'bot'); },500); };
+    aiInput.onkeypress=e=>{if(e.key==='Enter')sendAiBtn.click();};
+    // star rating
+    let currentRating=0; const starDiv=document.getElementById('starRating'), starsI=starDiv.querySelectorAll('i'), feedbackText=document.getElementById('feedbackText'), submitBtn=document.getElementById('submitFeedbackBtn');
+    starsI.forEach(s=>{ s.onmouseenter=()=>highlightStars(parseInt(s.dataset.value)); s.onmouseleave=()=>highlightStars(currentRating); s.onclick=()=>{ currentRating=parseInt(s.dataset.value); highlightStars(currentRating); }; });
+    function highlightStars(r){ starsI.forEach(s=>{ const val=parseInt(s.dataset.value); if(val<=r){ s.classList.remove('far'); s.classList.add('fas'); } else { s.classList.remove('fas'); s.classList.add('far'); } }); }
+    submitBtn.onclick=()=>{ if(currentRating===0) alert('Select rating'); else alert(`Thank you! ${currentRating} stars. Feedback: ${feedbackText.value.trim()||'none'}`); };
     
-    // BACK TO SEARCH - Now uses history.back() for better UX
-    document.getElementById('backToSearchBtn').onclick = () => {
-        window.history.back();
-    };
+    // ************* DOUBT BAR + PRESCRIPTION ANALYSIS (mock AI) *************
+    const prescriptionFile = document.getElementById('prescriptionFile');
+    const previewImg = document.getElementById('prescriptionPreview');
+    const analyzeBtn = document.getElementById('analyzePrescriptionBtn');
+    const analysisResultDiv = document.getElementById('analysisResult');
+    const resultDiseaseSpan = document.getElementById('resultDisease');
+    const resultDietSpan = document.getElementById('resultDiet');
+    const doubtTextarea = document.getElementById('doubtTextarea');
+    let currentImageFile = null;
 
-    searchBtn.onclick = triggerRender;
-    searchInput.oninput = triggerRender;
-    filterIcon.onclick = () => filterPanel.classList.toggle('hidden');
-    filterOpenNow.onchange = triggerRender;
-    filterEmergency.onchange = triggerRender;
-    categoryChips.forEach(chip => {
-        chip.onclick = () => {
-            categoryChips.forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
-            activeCategory = chip.dataset.cat;
-            triggerRender();
-        };
+    prescriptionFile.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if(file && file.type.startsWith('image/')){
+            currentImageFile = file;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                previewImg.src = ev.target.result;
+                previewImg.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else { currentImageFile = null; previewImg.style.display = 'none'; alert('Please select an image'); }
     });
 
-    // --- Doubt Bar ---
-    toggleDoubtBtn.onclick = () => {
-        const isOpen = doubtContainer.style.display === 'block';
-        doubtContainer.style.display = isOpen ? 'none' : 'block';
-    };
+    // disease & diet mapper (realistic mock)
+    function mockAiPrediction(fileName, doubtText = '') {
+        const seed = (fileName?.length || 1) + (doubtText?.length || 0);
+        const diseases = [
+            { name: "Type 2 Diabetes Mellitus", diet: "🥗 Low glycemic index foods, high fiber, avoid sugar. Focus on whole grains, legumes, leafy greens, lean protein, and regular monitoring of carbs." },
+            { name: "Hypertension (High BP)", diet: "🧂 DASH diet: reduce sodium, eat potassium-rich foods (bananas, spinach), limit alcohol, consume nuts, fish, and whole grains." },
+            { name: "Gastritis / GERD", diet: "🍌 Avoid spicy, oily, acidic foods. Eat small frequent meals, include banana, oatmeal, ginger, and stay hydrated." },
+            { name: "Upper Respiratory Infection", diet: "🍲 Warm fluids, honey-lemon tea, broth-based soups, vitamin C rich fruits, rest, and anti-inflammatory foods like turmeric milk." },
+            { name: "Migraine / Headache", diet: "🍫 Avoid triggers: caffeine, aged cheese. Maintain hydration, magnesium-rich foods (almonds, spinach), and consistent meal timing." }
+        ];
+        let idx = (seed % diseases.length);
+        if(doubtText.toLowerCase().includes('fever') || doubtText.toLowerCase().includes('cough')) idx = 3;
+        if(doubtText.toLowerCase().includes('bp') || doubtText.toLowerCase().includes('pressure')) idx = 1;
+        if(doubtText.toLowerCase().includes('sugar') || doubtText.toLowerCase().includes('diabetes')) idx = 0;
+        if(doubtText.toLowerCase().includes('stomach') || doubtText.toLowerCase().includes('acidity')) idx = 2;
+        return diseases[idx];
+    }
 
-    document.getElementById('analyzePrescriptionBtn').onclick = () => {
-        const btn = document.getElementById('analyzePrescriptionBtn');
-        btn.innerHTML = '<div class="loading-spinner"></div> Analyzing...';
-        setTimeout(() => {
-            btn.innerHTML = 'Analyze & Predict';
-            document.getElementById('analysisResult').classList.remove('hidden');
-            document.getElementById('resultDisease').innerText = "🩺 Predicted: Mild Infection";
-            document.getElementById('resultDiet').innerHTML = "Eat light meals and drink fluids.";
-        }, 1500);
-    };
+    analyzeBtn.addEventListener('click', async () => {
+        if(!currentImageFile) {
+            alert('Please upload a prescription image first.');
+            return;
+        }
+        analyzeBtn.disabled = true;
+        const originalText = analyzeBtn.innerHTML;
+        analyzeBtn.innerHTML = '<span class="loading-spinner"></span> Analyzing Rx...';
+        const doubtText = doubtTextarea.value.trim();
+        await new Promise(r => setTimeout(r, 1400));
+        const prediction = mockAiPrediction(currentImageFile.name, doubtText);
+        resultDiseaseSpan.innerHTML = `<i class="fas fa-stethoscope"></i> Predicted Condition: <strong>${prediction.name}</strong>`;
+        resultDietSpan.innerHTML = `<i class="fas fa-apple-alt"></i> 🥑 Recommended Diet Plan:<br>${prediction.diet}`;
+        analysisResultDiv.classList.remove('hidden');
+        analyzeBtn.innerHTML = originalText;
+        analyzeBtn.disabled = false;
+        // optional: show extra message if doubt provided
+        if(doubtText) resultDietSpan.innerHTML += `<br><br><i class="fas fa-comment-medical"></i> Based on your doubt: "${doubtText.substring(0,80)}", we aligned the plan.`;
+    });
 
-    // --- AI Bot ---
-    document.getElementById('sendAiBtn').onclick = () => {
-        const input = document.getElementById('aiInput');
-        if(!input.value.trim()) return;
-        const msg = document.createElement('div');
-        msg.className = 'message-ai user';
-        msg.innerText = input.value;
-        document.getElementById('aiMessages').appendChild(msg);
-        input.value = '';
-        setTimeout(() => {
-            const reply = document.createElement('div');
-            reply.className = 'message-ai bot';
-            reply.innerText = "I'm looking into that for you. Please consult the 'Rx AI' section for specific analysis.";
-            document.getElementById('aiMessages').appendChild(reply);
-            document.getElementById('aiMessages').scrollTop = document.getElementById('aiMessages').scrollHeight;
-        }, 800);
-    };
-
-    // Initial State
-    window.history.replaceState({ page: 'page1' }, '', '#page1');
-    renderRatings();
+    // Toggle doubt bar visibility
+    let doubtVisible = true;
+    toggleDoubtBtn.addEventListener('click', () => {
+        doubtVisible = !doubtVisible;
+        doubtContainer.style.display = doubtVisible ? 'block' : 'none';
+        toggleDoubtBtn.style.background = doubtVisible ? "#f5e6d3" : "#e0e7ef";
+    });
+    // initial render
+    renderRatings('');
+    populateHospitalDetail(0);
+    bottomNav.classList.add('hidden');
+    const videoIframe = videoModal.querySelector('iframe');
+    if(videoIframe && !videoIframe.src) videoIframe.src = videoIframe.dataset.src;
 })();
 </script>
 </body>
